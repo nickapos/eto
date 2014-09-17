@@ -3,7 +3,7 @@ Crete,Greece  13/10/2007
 Hello there
 
 this is a small collection of python classes that can calculate
-among others thing the reference evaportranspiration according the corrected
+among others thing the reference evaportranspiration according to the corrected
 penman-monteith method.
 
 This is a utility I wrote in my spare time and as such it is mostly undocumented
