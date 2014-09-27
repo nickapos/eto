@@ -18,6 +18,7 @@ class TestEaPoor(unittest.TestCase):
         This should really change to a round off of 3 digits, but unfortunately
         my computer produces an different number than the reference by 0.16
         '''
+        print "calculated value:"+str(self.ea.calc_ea())+" reference value 0.017016"
         self.assertAlmostEqual(self.ea.calc_ea(),0.017016,2)
 
 
