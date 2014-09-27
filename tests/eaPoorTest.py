@@ -15,7 +15,7 @@ class TestEaPoor(unittest.TestCase):
     def testEaBase(self):
         '''Test eaBase
         '''
-        self.assertAlmostEqual(self.eapoor.calc_ea(),0.017788007528568933)
+        self.assertAlmostEqual(round(self.eapoor.calc_ea()*100,2),round(100*0.017788007528568933,2))
 
 
 if __name__ == '__main__':
