@@ -13,7 +13,7 @@ class eaBase:
   
  def e(self,t):
   '''method that
-   calculates the  vapour pressure
+   calculates the e0
    from temperature'''
    
   klasma=17.27*t/(t+237.3)
@@ -21,3 +21,13 @@ class eaBase:
 
  def calc_ea(self):
   return None
+
+ def calc_es(self,tmin,tmax):
+  '''This method will calculate the es using the above
+  methods
+  '''
+  return (self.e(tmin)+self.e(tmax))/2
+
+if __name__ == '__main__':
+  eabase=eaBase()
+  print eabase.calc_es(15,24.6)
