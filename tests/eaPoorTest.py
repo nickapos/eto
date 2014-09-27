@@ -15,7 +15,7 @@ class TestEaPoor(unittest.TestCase):
     def testEaBase(self):
         '''Test eaBase
         '''
-        print "calculated value: "+str(round(self.eapoor.calc_ea()*100,2)) + " reference value: 1.78"
+        print "eaPoor calculated value: "+str(round(self.eapoor.calc_ea()*100,2)) + " reference value: 1.78"
         self.assertAlmostEqual(round(self.eapoor.calc_ea()*100,2),round(100*0.017788007528568933,2))
 
 
