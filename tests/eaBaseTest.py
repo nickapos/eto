@@ -1,5 +1,5 @@
 import unittest
-from eaBase import eaBase
+from ../eaBase import eaBase
 
 class TestEaBase(unittest.TestCase):
     eabase=eaBase()

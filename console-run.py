@@ -1,6 +1,7 @@
 #!/usr/bin/python
-
-
+from ea import ea
+from ea.eaPoor import eaPoor
+from penMon.pen_mclass import penm
 class GetResults:
  
  def runner(self):
@@ -33,7 +34,6 @@ class GetResults:
   
   rhmin = float(raw_input("Insert RHmin: "))
   
-  import ea
   eaCalculated=ea.ea(tmin,tmax,rhmin,rhmax)
   print str(eaCalculated.calc_ea())
 
@@ -48,8 +48,7 @@ class GetResults:
   
   rh = float(raw_input("Insert RH: "))
   
-  import eaPoor
-  eaPoorCalculated=eaPoor.eaPoor(tmin,tmax,rh)
+  eaPoorCalculated=eaPoor(tmin,tmax,rh)
   print eaPoorCalculated.calc_ea()
 
  def calculateEto(self):
@@ -80,8 +79,7 @@ class GetResults:
   sun= float(raw_input("Insert Sun Hours: "))
   
  
-  import pen_mclass
-  p=pen_mclass.penm(tmax,tmin,ea,speed,15,monthNum,latDeg,latMin,monthlyAv,monthlyAvPrev,alt,sun)
+  p=penm(tmax,tmin,ea,speed,15,monthNum,latDeg,latMin,monthlyAv,monthlyAvPrev,alt,sun)
   print str(p.calculate())
 
 
