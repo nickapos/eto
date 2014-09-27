@@ -1,5 +1,7 @@
 import unittest
-from ../eaBase import eaBase
+import sys
+sys.path.append('../')
+from ea.eaBase import eaBase
 
 class TestEaBase(unittest.TestCase):
     eabase=eaBase()

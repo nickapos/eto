@@ -1,5 +1,7 @@
 import unittest
-from eaPoor import eaPoor
+import sys
+sys.path.append('../')
+from ea.eaPoor import eaPoor
 
 class TestEaPoor(unittest.TestCase):
     def setUp(self):
