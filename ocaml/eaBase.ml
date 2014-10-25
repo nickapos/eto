@@ -1,6 +1,6 @@
 class eaBase = object (self)
  (*
-  2class with functions
+  class with functions
    to calculate ea from
    mean relative humidity and
    minimum and maximum measurements.
@@ -28,4 +28,4 @@ end;;
 let () = 
   (* create an object*)
   let obj = new eaBase  in
-  Printf.printf "%f\n" (obj#calc_es 15.0 24.6)
+    Printf.printf "%f\n" (obj#calc_es 15.0 24.6)
