@@ -9,11 +9,18 @@ class penm = object (self)
     (*
      *function that calculates gamma based on mean temperature
      *)
-    let paran=(t+.237.3)**2.0 and arith=4098.0*.(0.6108*.exp(17.27*.t/.(t+.237.3))) in 
-      arith/.paran
+    let denominator=(t+.237.3)**2.0 and arith=4098.0*.(0.6108*.exp(17.27*.t/.(t+.237.3))) in 
+      arith/.denominator
 
-      (*
+      
   method pressure z=
+    (*function that calculates pressure
+      based on altitude
+      returns pressure*)
+    let fraction=(293.-.0.0065*.z)/.293. in
+      101.3*.fraction**5.26
+
+    (*
   method gamma p=
   method e_svp t=
   method e_svp t=
