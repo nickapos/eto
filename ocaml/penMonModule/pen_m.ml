@@ -1,3 +1,4 @@
+open Unix
 class penm = object (self)
  (*
   This class provides the methods to calculate the penman monteith
@@ -28,19 +29,30 @@ class penm = object (self)
    *)
     0.665*.0.001*.p
   
-  method e_svp t=
- (*
+  method e_svp t= 
+  (*
   function that calculates
   saturation vapour pressure
   based on temperature
 
-  returns saturation vapour presure
+  n vapour presure
   *)
-    0.6108*.exp**(17.27*.t/.(t+.237.3))
+    0.6108*.exp(17.27*.t/.(t+.237.3))
+ 
+  method day_of_year d m= 
+    (*
+     function that calculates 
+     which day of the year is 
+     the one in d day of m month
 
+      returns day of the year
+      algorithm from http://alcor.concordia.ca/~gpkatch/gdate-algorithm.html
+     *)
+      let now_t = Unix.localtime (Unix.time ()) in
+      let mnth= (m + 9) mod 12 and yr=(1900+ now_t.tm_year)-m/10 in
+       days_from_start=365*yr + yr/4 - yr/100 + yr/400 + (mnth*306 + 5)/10 + ( d - 1 ) in
 
   (*
-  method e_svp t=
   method day_of_year d m=
   method day_of_year_monthly m=
   method inv_rel_dist J=
@@ -62,7 +74,7 @@ let main () =
           Array.iter cat argv *)
           (* create an object*)
           let obj = new penm  in
-            Printf.printf "%f\n" (obj#delta (25.0+.273.0))
+          Printf.printf "%d\n" (obj#day_of_year 26 10)
 
 
 let _ = main ()
