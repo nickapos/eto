@@ -20,9 +20,26 @@ class penm = object (self)
     let fraction=(293.-.0.0065*.z)/.293. in
       101.3*.fraction**5.26
 
-    (*
+    
   method gamma p=
+  (*
+    function that calculates gamma
+      based on pressure
+   *)
+    0.665*.0.001*.p
+  
   method e_svp t=
+ (*
+  function that calculates
+  saturation vapour pressure
+  based on temperature
+
+  returns saturation vapour presure
+  *)
+    0.6108*.exp**(17.27*.t/.(t+.237.3))
+
+
+  (*
   method e_svp t=
   method day_of_year d m=
   method day_of_year_monthly m=
