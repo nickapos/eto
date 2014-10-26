@@ -6,6 +6,13 @@ class penm = object (self)
   and example table 17.
   *) 
   method delta t=
+    (*
+     *function that calculates gamma based on mean temperature
+     *)
+    let paran=(t+.237.3)**2.0 and arith=4098.0*.(0.6108*.exp(17.27*.t/.(t+.237.3))) in 
+      arith/.paran
+
+      (*
   method pressure z=
   method gamma p=
   method e_svp t=
@@ -20,7 +27,7 @@ class penm = object (self)
   method clear_short_radiation J L=
   method stef_boltz_temp_prod T=
   method calculate =
-
+*)
 
 end;;
 
