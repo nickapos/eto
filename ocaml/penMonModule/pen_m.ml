@@ -38,7 +38,7 @@ let main () =
           Array.iter cat argv *)
           (* create an object*)
           let obj = new penm  in
-            Printf.printf "%f\n" ( 25.0)
+            Printf.printf "%f\n" (obj#delta (25.0+.273.0))
 
 
 let _ = main ()
