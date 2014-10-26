@@ -25,7 +25,13 @@ class eaBase = object (self)
 
 end;;
 
-let () = 
-  (* create an object*)
-  let obj = new eaBase  in
-    Printf.printf "%f\n" (obj#calc_es 15.0 24.6)
+let main () =
+      (*let len = (Array.length Sys.argv) in
+        let argv = (Array.sub Sys.argv 1 (len-1)) in (* skip argv0 *)
+          Array.iter cat argv *)
+          (* create an object*)
+          let obj = new eaBase  in
+            Printf.printf "%f\n" (obj#calc_es 15.0 24.6)
+
+
+(*let _ = main ()*)
