@@ -1,3 +1,6 @@
 .bzr/
 .bzrignore
 *pyc
+*o
+*cmx
+*cmi
