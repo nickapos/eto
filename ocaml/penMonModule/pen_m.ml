@@ -51,14 +51,32 @@ class penm = object (self)
     (*
      function that calculates 
      which day of the year is 
-     the one in d day of m month
+     the one in d day of m month.
+     It uses the current year. That is in the now_t variable
+      and uses it to find the number of the day d in month m
+      of the current year.
+      The inc_date returns a tuple, the tuple_date filters the tuple to its
+      second part and finaly d is a Unix.localtime record, from which we can pick the tm_yday
 
       returns day of the year
-      algorithm from http://alcor.concordia.ca/~gpkatch/gdate-algorithm.html
      *)
       let now_t = Unix.localtime (Unix.time ()) in
-      let mnth= (m + 9) mod 12 and yr=(1900+ now_t.tm_year)-m/10 in
-       365*yr + yr/4 - yr/100 + yr/400 + (mnth*306 + 5)/10 + ( d - 1 ) 
+      let inc_date=Unix.mktime{
+          Unix.tm_sec = 0;
+          tm_min = 0;
+          tm_hour =0;
+          tm_mday =d;
+          tm_mon =m;
+          tm_year =now_t.tm_year;
+          tm_wday = -1;
+          tm_yday = -1;
+          tm_isdst = true;
+        } and tuple_date(a,b)=b in
+        let d=tuple_date(inc_date) in
+          d.tm_yday
+
+     
+
 
   (*
   method day_of_year d m=
@@ -82,7 +100,7 @@ let main () =
           Array.iter cat argv *)
           (* create an object*)
           let obj = new penm  in
-          Printf.printf "%B\n" (obj#is_leap 2012)
+          Printf.printf "%d\n" (obj#day_of_year 27 10)
 
 
 let _ = main ()
