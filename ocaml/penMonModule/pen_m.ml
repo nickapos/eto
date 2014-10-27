@@ -79,7 +79,6 @@ class penm = object (self)
 
 
   (*
-  method day_of_year d m=
   method day_of_year_monthly m=
   method inv_rel_dist J=
   method lat_in_rad L=
