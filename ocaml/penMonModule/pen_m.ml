@@ -38,6 +38,14 @@ class penm = object (self)
   n vapour presure
   *)
     0.6108*.exp(17.27*.t/.(t+.237.3))
+
+
+  method is_leap y=
+    (*
+     *this method will detect if a year is leap year or not
+     *it will return a boolean
+     *)
+    if (y mod 4) ==0 then true else (if (y mod 100)==0 then false else (if (y mod 400)==0 then true else false))
  
   method day_of_year d m= 
     (*
@@ -74,7 +82,7 @@ let main () =
           Array.iter cat argv *)
           (* create an object*)
           let obj = new penm  in
-          Printf.printf "%d\n" (obj#day_of_year 26 10)
+          Printf.printf "%B\n" (obj#is_leap 2012)
 
 
 let _ = main ()
