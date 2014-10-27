@@ -1,6 +1,5 @@
-open EaBase
 class eaPoor = object (self)
-  inherit  eaBase
+  inherit  EaBase.eaBase
  (*
    class with functions
    to calculate ea from
