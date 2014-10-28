@@ -92,12 +92,33 @@ class penm = object (self)
     the inverse relative distance
     of earth-sun depending on
     the day of the year J
+
+    returns the distance dr
    *)
     1.+.0.033*.cos (2.0*.BatFloat.pi*.j/.365.)
 
+  method lat_in_rad l=
+    (*
+     *calculates the latidude
+      in rads from degrees
+
+      returns rads phi
+     *
+     *)
+    BatFloat.pi*.l/.180.
+
+
+  method solar_declination j=
+    (*
+     *calulates the solar declination in rads
+      using the day of the year J
+
+      returns solar declination delta
+     *
+     *)
+    let angle=(2.*.BatFloat.pi/.365.)*.j-.1.39 in
+      0.409*.sin(angle)
   (*
-  method lat_in_rad L=
-  method solar_declination J=
   method sun_hour_angle J L=
   method daylength ws=
   method clear_short_radiation J L=
