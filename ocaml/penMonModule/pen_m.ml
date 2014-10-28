@@ -77,10 +77,25 @@ class penm = object (self)
 
      
 
+  method day_of_year_monthly m=
+    (*
+     *function that calculates
+      which day of the year is
+      the middle day of m month
+      should really be 30.4*m-15
+     *)
+    30*m-15
+
+  method inv_rel_dist j=
+  (*
+   *function that calculates
+    the inverse relative distance
+    of earth-sun depending on
+    the day of the year J
+   *)
+    1.+.0.033*.cos (2.0*.BatFloat.pi*.j/.365.)
 
   (*
-  method day_of_year_monthly m=
-  method inv_rel_dist J=
   method lat_in_rad L=
   method solar_declination J=
   method sun_hour_angle J L=
@@ -99,7 +114,7 @@ let main () =
           Array.iter cat argv *)
           (* create an object*)
           let obj = new penm  in
-          Printf.printf "%d\n" (obj#day_of_year 27 10)
+          Printf.printf "%f\n" (obj#inv_rel_dist 301.0)
 
 
 let _ = main ()
