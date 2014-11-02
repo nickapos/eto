@@ -24,7 +24,7 @@ class TestEto(unittest.TestCase):
     def testEto(self):
         '''Test eto
         '''
-        p=penm(self.tMax,self.tMin,self.ea,self.speed,15,self.monthNum,self.latDeg,self.latMin,self.monthlyAv,self.monthlyAvPrev,self.alt,self.sun)
+        p=penm(self.tMin,self.tMax,self.ea,self.speed,15,self.monthNum,self.latDeg,self.latMin,self.monthlyAv,self.monthlyAvPrev,self.alt,self.sun)
         print "eTo calculated value:"+str(p.calculate())+" reference value 5.72"
         self.assertAlmostEqual(round(p.calculate(),2),5.72,2)
 

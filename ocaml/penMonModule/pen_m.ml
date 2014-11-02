@@ -157,7 +157,7 @@ class penm = object (self)
    let expression=24.*.60.*.gsc*.dr*.(ws*.sin phi *.sin(delta)+.cos(phi)*.cos(delta)*.sin(ws)) in
     expression/.BatFloat.pi
 
-  method stef_boltz_temp_prod t=
+  method stef_boltz_temp_prod ~t:t=
     (*
      *a function that calculates
       the product of the stefan boltzman
@@ -169,60 +169,37 @@ class penm = object (self)
         tk=t+.273.16 in
       sigma*.tk**4.
 
-  method calculate tmax tmin altitude u=
+  method calculate ~tmax:tmax ~tmin:tmin ~altitude:altitude ~avairspeed:avairspeed ~ea:ea ~day:day ~monthNum:monthNum ~latitude_degrees:latitude_degrees ~latitude_Lepta:latitude_Lepta ~av_sunhours:av_sunhours ~tmonth_i:tmonth_i ~tmonth_i_1:tmonth_i_1=
     (*
      *function used to calculate the ETo
 
       returns ETo
      *)
     let tmean= (tmax +. tmin)/. 2. and press=self#pressure altitude in
-    let g=self#gamma press and temp1=1.+.0.34*.u and delt=self#delta tmean in
-      delt/.(delt+.g+.temp1)
-   (* 
-   delt=self.delta(Tmean)
-   temp2=delt/(delt+G*temp1)
-   temp3=G/(delt+G*temp1)
-   temp4=900*self.U/(Tmean+273)
-   emax=self.e_svp(self.Tmax)
-   emin=self.e_svp(self.Tmin)
-   eav=(emax+emin)/2
-   deltaEs = eav-self.Ea
-   J=self.day_of_year(self.Day,self.Month)
-   L=self.Latitude_Moires+(float(self.Latitude_Lepta)/60)
-   Ra=self.clear_short_radiation(J,L)
-   ws=self.sun_hour_angle(J,L)
-   N=self.daylength(ws)
-   nN=self.n/N
-   Rs=(0.25+0.5*nN)*Ra
-   Rso=(0.75+2*self.altitude/100000)*Ra
-   logos1=Rs/Rso
-   Rns=0.77*Rs
-   sigma_t_max = self.stef_boltz_temp_prod(self.Tmax)
-   sigma_t_min=self.stef_boltz_temp_prod(self.Tmin)
-   temp5= 0.34-0.14*math.sqrt(self.Ea)
-   temp6=1.35*logos1-0.35
-   Rnl=((sigma_t_max+sigma_t_min)/2)*temp5*temp6
-   Rn=Rns-Rnl
-   Gday=0
-   Gmonth=0.14*(self.Tmonth_i-self.Tmonth_i_1)
-   temp7=Rn-Gmonth
-   temp8 = 0.408*(Rn-G)
-   fin1 = temp8 * temp2
-   fin2 = temp4*deltaEs*temp3
-   ETo=fin1+fin2
-   return ETo *)
-
-
+    let g=self#gamma press and temp1=1.+.0.34*.avairspeed and delt=self#delta tmean in
+    let  temp2=delt/.(delt+.g+.temp1) and temp3=g/.(delt+.g*.temp1) and temp4=900.*.g/.(tmean+.273.) and emax=self#e_svp tmax and
+      emin=self#e_svp tmin in
+      let eav=(emax+.emin)/.2. in
+      let deltaEs = eav-.ea and j=self#day_of_year day monthNum and l= latitude_degrees+. latitude_Lepta/.60. in
+      let ra=self#clear_short_radiation (float_of_int j) l and ws=self#sun_hour_angle (float_of_int j) l in
+      let daylength=self#daylength ws in
+      let nN= daylength/.av_sunhours in
+      let rs=(0.25+.0.5*.nN)*.ra and rso=(0.75+.2.*.altitude/.100000.)*.ra in
+      let fraction1=rs/.rso and rns=0.77*.rs and sigma_t_max = self#stef_boltz_temp_prod tmax and sigma_t_min=self#stef_boltz_temp_prod tmin 
+        and temp5= 0.34-.0.14*.sqrt ea in
+      let temp6=1.35*.fraction1-.0.35 in
+      let rnl=((sigma_t_max+.sigma_t_min)/.2.)*.temp5*.temp6 in
+      let rn=rns-.rnl and gmonth=0.14*.(tmonth_i-.tmonth_i_1) in
+      let temp7=rn-.gmonth and temp8=0.408*.(rn-.g) in
+      let fin1=temp8 *. temp2 and fin2= temp4*.deltaEs*.temp3 in
+      fin1+.fin2
 end;;
-
 
 let main () =
       (*let len = (Array.length Sys.argv) in
-*       let argv = (Array.sub Sys.argv 1 (len-1)) in (* skip argv0 *)
-          Array.iter cat argv *)
-          (* create an object*)
-          let obj = new penm  in
-          Printf.printf "%f\n" (obj#inv_rel_dist 301.0)
+          create an object *)
+          let obj = new penm in
+          Printf.printf "%f\n" (obj#calculate ~tmin:25.6 ~tmax:34.8 ~ea:2.85 ~day:15 ~avairspeed:2. ~monthNum:5 ~latitude_degrees:13. ~latitude_Lepta:44. ~tmonth_i:30.2 ~tmonth_i_1:29.2 ~altitude:2. ~av_sunhours:8.5)
 
 
 let _ = main ()
