@@ -204,9 +204,6 @@ class penm:
    temp6=1.35*logos1-0.35
    Rnl=((sigma_t_max+sigma_t_min)/2)*temp5*temp6
    Rn=Rns-Rnl
-   Gday=0
-   Gmonth=0.14*(self.Tmonth_i-self.Tmonth_i_1)
-   temp7=Rn-Gmonth
    temp8 = 0.408*(Rn-G)
    fin1 = temp8 * temp2
    fin2 = temp4*deltaEs*temp3
