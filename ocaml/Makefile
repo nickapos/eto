@@ -9,5 +9,5 @@ test: ;ocamlfind ocamlc -package pa_ounit -linkpkg -g $(testdir)/unit.ml -o unit
 
 .PHONY: clean all
 
-clean: ; rm $(eadir)/*.cm* $(penmdir)/*.cm* $(testdir)/*.cm* eabase eapoor ea penmon unit_tests
+clean: ; rm $(eadir)/*.cm* $(penmdir)/*.cm* $(testdir)/*.cm* eabase eapoor ea penmon unit_tests *log *cache
 all: eaBase eaPoor ea penmon
