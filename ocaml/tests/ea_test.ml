@@ -3,7 +3,7 @@ open OUnit2
 
 
 let test2 test_ctxt=
-  let a =cmp_float ~epsilon:0.00001 0.1999999 0.1989998 in
+  let a =cmp_float ~epsilon:0.00001 0.1999999 0.1999998 in
     assert_bool "failed" a
 
 
