@@ -22,4 +22,4 @@ let main () =
           Printf.printf "%f\n" (obj#calc_ea 0.54 0.82 18.0 25.0)
 
 
-let _ = main ()
+(*let _ = main ()*)
