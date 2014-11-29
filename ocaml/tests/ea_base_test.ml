@@ -14,7 +14,7 @@ let e_test _=
 
 let calc_es_test _=
   let should_be=2.39921378082 and result=obj#calc_es tmin tmax in
-  let compare =cmp_float ~epsilon:test_precision (obj#calc_es tmin tmax) should_be and 
+  let compare =cmp_float ~epsilon:test_precision result should_be and 
     error_msg="failed test result: "^string_of_float (result)^" should be "^string_of_float should_be in
     assert_bool error_msg compare
 
