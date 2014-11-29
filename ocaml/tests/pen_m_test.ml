@@ -1,4 +1,5 @@
 open OUnit2
+open Pen_m
 
 let test_precision=0.09
 let tMin = 25.6
@@ -13,17 +14,17 @@ let monthlyAvPrev=29.2
 let alt=2.0
 let sun=8.5
 
-let obj = new Penm.penm
+let obj = new penm
 
 
-let eto_test _=
-  let should_be=5.72 and result=obj#calculate ~tmin:tMin ~tmax:tMax ~ea:ea ~day:15 ~avairspeed:2. ~monthNum:5 ~latitude_degrees:latDeg ~latitude_Lepta:letMin ~tmonth_i:monthlyAv ~tmonth_i_1:monthlyAvPrev ~altitude:alt ~av_sunhours:sun in
+let eto_fin_test _=
+  let should_be=5.72 and result=obj#calculate ~tmin:tMin ~tmax:tMax ~ea:ea ~day:15 ~avairspeed:2. ~monthNum:5 ~latitude_degrees:latDeg ~latitude_Lepta:latMin ~tmonth_i:monthlyAv ~tmonth_i_1:monthlyAvPrev ~altitude:alt ~av_sunhours:sun in
   let compare =cmp_float ~epsilon:test_precision result should_be and 
   error_msg="failed test result: "^string_of_float (result)^" should be "^string_of_float should_be^" diff is: "^string_of_float (result-.should_be) in
     assert_bool error_msg compare
 
 
-let ea_test = "ea_test">::: ["test2" >:: test2; ]
+let eto_test = "eto_test">::: ["eto_fin_test" >:: eto_fin_test; ]
 
 let _ =
-  run_test_tt_main ea_test
+  run_test_tt_main eto_test
