@@ -1,18 +1,23 @@
 open OUnit2
-open Ea
 
 let test_precision=0.09
-let tmin=18.0
-let tmax=25.0
-let rhmin=0.54
-let rhmax=0.82
-let obj = new ea
+let tMin = 25.6
+let tMax=34.8
+let ea=2.85
+let speed=2.0
+let monthNum=5.0
+let latDeg=13.0
+let latMin=44.0
+let monthlyAv=30.2
+let monthlyAvPrev=29.2
+let alt=2.0
+let sun=8.5
+
+let obj = new Penm.penm
 
 
-let test2 _=
-  (* This should really change to a round off of 3 digits, but unfortunately
-   *  my computer produces an different number than the reference by 0.16 *)
-  let should_be=0.017016 and result=obj#calc_ea rhmin rhmax tmin tmax  in
+let eto_test _=
+  let should_be=5.72 and result=obj#calculate ~tmin:tMin ~tmax:tMax ~ea:ea ~day:15 ~avairspeed:2. ~monthNum:5 ~latitude_degrees:latDeg ~latitude_Lepta:letMin ~tmonth_i:monthlyAv ~tmonth_i_1:monthlyAvPrev ~altitude:alt ~av_sunhours:sun in
   let compare =cmp_float ~epsilon:test_precision result should_be and 
   error_msg="failed test result: "^string_of_float (result)^" should be "^string_of_float should_be^" diff is: "^string_of_float (result-.should_be) in
     assert_bool error_msg compare
