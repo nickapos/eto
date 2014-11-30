@@ -55,14 +55,15 @@ let is_leap_f_test _=
 let day_of_year_test _=
   let should_be=334 and result=obj#day_of_year 30 11 and error_msg="failed test result: " in
     assert_equal ~msg:error_msg ~printer:string_of_int should_be result
-(*
+
+    (*
 let eto_fin_test _=
   let should_be=5.72 and result=obj#calculate ~tmin:tMin ~tmax:tMax ~ea:ea ~day:15 ~avairspeed:2. ~monthNum:5 ~latitude_degrees:latDeg ~latitude_Lepta:latMin ~tmonth_i:monthlyAv ~tmonth_i_1:monthlyAvPrev ~altitude:alt ~av_sunhours:sun in
   let compare =cmp_float ~epsilon:test_precision result should_be and 
   error_msg="failed test result: "^string_of_float (result)^" should be "^string_of_float should_be^" diff is: "^string_of_float (result-.should_be) in
     assert_bool error_msg compare
-
 *)
+
 let eto_test = "eto_test">::: [
   "pressure_test">:: pressure_test;
   "gamma_test">:: gamma_test;
@@ -70,6 +71,7 @@ let eto_test = "eto_test">::: [
   "is_leap_y_test">:: is_leap_y_test;
   "is_leap_f_test">:: is_leap_f_test;
   "day_of_year_test">:: day_of_year_test;
+  (*"eto_fin_test">:: eto_fin_test;*)
    ]
 
 let _ =

@@ -56,24 +56,20 @@ class penm = object (self)
       and uses it to find the number of the day d in month m
       of the current year.
       The inc_date returns a tuple, the tuple_date filters the tuple to its
-      second part and finaly d is a Unix.localtime record, from which we can pick the tm_yday
+      second part and finaly d is a Unix.localtime record, from which we can pick the tm_year
 
       returns day of the year
      *)
-      let now_t = Unix.localtime (Unix.time ()) in
-      let inc_date=Unix.mktime{
-          Unix.tm_sec = 0;
-          tm_min = 0;
-          tm_hour =0;
-          tm_mday =d;
-          tm_mon =m;
-          tm_year =now_t.tm_year;
-          tm_wday = -1;
-          tm_yday = -1;
-          tm_isdst = true;
-        } and tuple_date(a,b)=b in
-        let d=tuple_date(inc_date) in
-          d.tm_yday
+    let dayNo=((275*m/9) -30 + d)-2 and now_t = Unix.localtime (Unix.time ()) in
+      let this_year = now_t.tm_year+1900 in
+      if m < 3 
+      then
+        dayNo+2
+      else if (self#is_leap this_year) && m >2
+      then
+        dayNo+1
+      else 
+        dayNo
 
      
 
