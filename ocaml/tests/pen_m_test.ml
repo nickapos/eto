@@ -62,8 +62,8 @@ let day_of_year_monthly_test _=
 
 let inv_rel_dist_test _=
   (* test a non leap year*)
-  let year=246 in
-  let should_be=0.985 and result=obj#inv_rel_dist year in
+  let day_of_year=246 in
+  let should_be=0.985 and result=obj#inv_rel_dist day_of_year in
   let compare =cmp_float ~epsilon:test_precision result should_be and 
   error_msg="failed test result: "^string_of_float (result)^" should be "^string_of_float should_be^" diff is: "^string_of_float (result-.should_be) in
     assert_bool error_msg compare
