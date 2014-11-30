@@ -51,6 +51,10 @@ let is_leap_f_test _=
   let result=obj#is_leap year and error_msg="failed test result year "^string_of_int (year)^" is leap " in
   let negated_result= not result in
     assert_bool error_msg negated_result
+
+let day_of_year_test _=
+  let should_be=334 and result=obj#day_of_year 30 11 and error_msg="failed test result: " in
+    assert_equal ~msg:error_msg ~printer:string_of_int should_be result
 (*
 let eto_fin_test _=
   let should_be=5.72 and result=obj#calculate ~tmin:tMin ~tmax:tMax ~ea:ea ~day:15 ~avairspeed:2. ~monthNum:5 ~latitude_degrees:latDeg ~latitude_Lepta:latMin ~tmonth_i:monthlyAv ~tmonth_i_1:monthlyAvPrev ~altitude:alt ~av_sunhours:sun in
@@ -65,6 +69,7 @@ let eto_test = "eto_test">::: [
   "e_svp_test">:: e_svp_test;
   "is_leap_y_test">:: is_leap_y_test;
   "is_leap_f_test">:: is_leap_f_test;
+  "day_of_year_test">:: day_of_year_test;
    ]
 
 let _ =
