@@ -80,7 +80,7 @@ class penm = object (self)
       the middle day of m month
       should really be 30.4*m-15
      *)
-    30*m-15
+    int_of_float(30.4*.float_of_int m -.15.)
 
   method inv_rel_dist j=
   (*
@@ -91,7 +91,8 @@ class penm = object (self)
 
     returns the distance dr
    *)
-    1.+.0.033*.cos (2.0*.BatFloat.pi*.j/.365.)
+    let year_float= float_of_int j in
+      1.+.0.033*.cos (2.0*.BatFloat.pi*.year_float/.365.)
 
   method lat_in_rad l=
     (*
@@ -149,7 +150,8 @@ class penm = object (self)
     phi=self#lat_in_rad l and 
     delta=self#solar_declination j and 
     ws=self#sun_hour_angle j l and 
-    dr=self#inv_rel_dist j in
+    j_float=int_of_float j in
+   let dr=self#inv_rel_dist j_float in
    let expression=24.*.60.*.gsc*.dr*.(ws*.sin phi *.sin(delta)+.cos(phi)*.cos(delta)*.sin(ws)) in
     expression/.BatFloat.pi
 
