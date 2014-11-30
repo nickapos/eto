@@ -91,8 +91,8 @@ class penm = object (self)
 
     returns the distance dr
    *)
-    let year_float= float_of_int j in
-      1.+.0.033*.cos (2.0*.BatFloat.pi*.year_float/.365.)
+    let day_of_year_float= float_of_int j in
+      1.+.0.033*.cos (2.0*.BatFloat.pi*.day_of_year_float/.365.)
 
   method lat_in_rad l=
     (*

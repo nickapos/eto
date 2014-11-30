@@ -97,7 +97,7 @@ class penm:
  
  
   returns the distance dr'''
-  return 1+0.033*math.cos(2*math.pi*J/365)
+  return 1+0.033*math.cos(2*math.pi*J/365))
  
  
  
