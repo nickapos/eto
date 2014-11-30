@@ -61,7 +61,6 @@ let day_of_year_monthly_test _=
     assert_equal ~msg:error_msg ~printer:string_of_int should_be result
 
 let inv_rel_dist_test _=
-  (* test a non leap year*)
   let day_of_year=246 in
   let should_be=0.985 and result=obj#inv_rel_dist day_of_year in
   let compare =cmp_float ~epsilon:test_precision result should_be and 
