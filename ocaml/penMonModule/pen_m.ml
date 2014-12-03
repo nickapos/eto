@@ -113,7 +113,8 @@ class penm = object (self)
       returns solar declination delta
      *
      *)
-    let angle=(2.*.BatFloat.pi/.365.)*.j-.1.39 in
+    let j_float= float_of_int j in
+    let angle=(2.*.BatFloat.pi/.365.)*.j_float-.1.39 in
       0.409*.sin(angle)
 
   method sun_hour_angle j l=
@@ -149,9 +150,8 @@ class penm = object (self)
    let gsc=0.0820 and 
     phi=self#lat_in_rad l and 
     delta=self#solar_declination j and 
-    ws=self#sun_hour_angle j l and 
-    j_float=int_of_float j in
-   let dr=self#inv_rel_dist j_float in
+    ws=self#sun_hour_angle j l in
+   let dr=self#inv_rel_dist j in
    let expression=24.*.60.*.gsc*.dr*.(ws*.sin phi *.sin(delta)+.cos(phi)*.cos(delta)*.sin(ws)) in
     expression/.BatFloat.pi
 
@@ -179,7 +179,7 @@ class penm = object (self)
       emin=self#e_svp tmin in
       let eav=(emax+.emin)/.2. in
       let deltaEs = eav-.ea and j=self#day_of_year day monthNum and l= latitude_degrees+. latitude_Lepta/.60. in
-      let ra=self#clear_short_radiation (float_of_int j) l and ws=self#sun_hour_angle (float_of_int j) l in
+      let ra=self#clear_short_radiation j l and ws=self#sun_hour_angle j l in
       let daylength=self#daylength ws in
       let nN= daylength/.av_sunhours in
       let rs=(0.25+.0.5*.nN)*.ra and rso=(0.75+.2.*.altitude/.100000.)*.ra in
