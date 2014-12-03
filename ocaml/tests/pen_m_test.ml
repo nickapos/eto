@@ -69,6 +69,15 @@ let lat_in_rad_test _=
 let solar_declination_test _=
   let should_be=0.11965509 and result=obj#solar_declination day_of_year in
     test_reporter should_be result
+
+let sun_hour_angle_test _=
+  let should_be=1.59855704 and result=obj#sun_hour_angle day_of_year latDeg in
+    test_reporter should_be result
+
+let daylength_test _=
+  let should_be=12.2120762 and ws=1.59855704 in
+    let result=obj#daylength ws in
+      test_reporter should_be result
     (*
 let eto_fin_test _=
   let should_be=5.72 and result=obj#calculate ~tmin:tMin ~tmax:tMax ~ea:ea ~day:15 ~avairspeed:2. ~monthNum:5 ~latitude_degrees:latDeg ~latitude_Lepta:latMin ~tmonth_i:monthlyAv ~tmonth_i_1:monthlyAvPrev ~altitude:alt ~av_sunhours:sun in
@@ -87,6 +96,8 @@ let eto_test = "eto_test">::: [
   "inv_rel_dist_test">:: inv_rel_dist_test;
   "lat_in_rad_test">:: lat_in_rad_test;
   "solar_declination_test">:: solar_declination_test;
+  "sun_hour_angle_test">:: sun_hour_angle_test;
+  "daylength_test">:: daylength_test;
   (*"eto_fin_test">:: eto_fin_test;*)
    ]
 

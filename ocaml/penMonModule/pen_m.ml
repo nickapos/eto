@@ -136,6 +136,7 @@ class penm = object (self)
       returns daylength
      *)
      24.*.ws/.BatFloat.pi
+
   method clear_short_radiation j l=
     (*
      function that calculates the
