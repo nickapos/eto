@@ -10,6 +10,9 @@ After all the main purpose of this small project is to create the classes not so
 
 In the doc directory I have placed the relative paper the fao has produced describing the penman-monteith method so if you have any doubts about the results you can double-check them on your own.
 
+This directory contains two independent impementations of the same algorithm. One is written in python and the other one in ocaml.
+Each implementation is completely independent. The stable implementation is the one in python. The ocaml implementation is under development
+and probably contains bugs.
 
 Thank you for your interest in eto
 
