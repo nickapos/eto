@@ -102,8 +102,15 @@ let temp1_test _=
       test_reporter should_be result
 
 let temp2_test _=
-  (*should be really is 0.685*)
-  let should_be=0.695 and result=obj#temp2 0.246 0.0674 1.6 in
+  let should_be=0.685 and result=obj#temp2 0.246 0.0674 1.68 in
+      test_reporter should_be result
+
+let temp3_test _=
+  let should_be=0.188 and result=obj#temp3 0.246 0.0674 1.68 in
+      test_reporter should_be result
+
+let temp4_test _=
+  let should_be=5.94 and result=obj#temp4 avairspeed 30.2 in
       test_reporter should_be result
 
 let eto_fin_test _=
@@ -128,6 +135,8 @@ let eto_test = "eto_test">::: [
   "tmean_test">:: tmean_test;
   "temp1_test">:: temp1_test;
   "temp2_test">:: temp2_test;
+  "temp3_test">:: temp3_test;
+  "temp4_test">:: temp4_test;
   (*"eto_fin_test">:: eto_fin_test;*)
    ]
 
