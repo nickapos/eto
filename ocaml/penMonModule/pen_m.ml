@@ -168,15 +168,28 @@ class penm = object (self)
         tk=t+.273.16 in
       sigma*.tk**4.
 
+
+  method tmean tMax tMin =
+    (*
+     * returns the mean of two temperatures
+     *)
+    (tMax +. tMin)/. 2.
+
+  method temp1 avairspeed =
+    1.+.0.34*.avairspeed
+
+  method temp2 delta g temp1 =
+    delta/.(delta+.g*.temp1)
+
   method calculate ~tmax:tmax ~tmin:tmin ~altitude:altitude ~avairspeed:avairspeed ~ea:ea ~day:day ~monthNum:monthNum ~latitude_degrees:latitude_degrees ~latitude_Lepta:latitude_Lepta ~av_sunhours:av_sunhours ~tmonth_i:tmonth_i ~tmonth_i_1:tmonth_i_1=
     (*
      *function used to calculate the ETo
 
       returns ETo
      *)
-    let tmean= (tmax +. tmin)/. 2. and press=self#pressure altitude in
-    let g=self#gamma press and temp1=1.+.0.34*.avairspeed and delt=self#delta tmean in
-    let  temp2=delt/.(delt+.g+.temp1) and temp3=g/.(delt+.g*.temp1) and temp4=900.*.g/.(tmean+.273.) and emax=self#e_svp tmax and
+    let tmean= self#tmean tmax tmin and press=self#pressure altitude in
+    let g=self#gamma press and temp1=self#temp1 avairspeed and delt=self#delta tmean in
+    let  temp2=self#temp2 delt g temp1 and temp3=g/.(delt+.g*.temp1) and temp4=900.*.g/.(tmean+.273.) and emax=self#e_svp tmax and
       emin=self#e_svp tmin in
       let eav=(emax+.emin)/.2. in
       let deltaEs = eav-.ea and j=self#day_of_year day monthNum and l= latitude_degrees+. latitude_Lepta/.60. in

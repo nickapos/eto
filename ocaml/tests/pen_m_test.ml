@@ -5,6 +5,7 @@ let obj = new penm
 
 let test_precision=0.01
 let tMin = 25.6
+let day_of_year=246
 let tMax=34.8
 let ea=2.85
 let speed=2.0
@@ -15,7 +16,6 @@ let monthlyAv=30.2
 let monthlyAvPrev=29.2
 let alt=2.0
 let sun=8.5
-let day_of_year=246
 
 let test_reporter should_be result =
   (* This function will be used by all the other test functions to reduce boilerplate code*)
@@ -63,8 +63,10 @@ let inv_rel_dist_test _=
     test_reporter should_be result
 
 let lat_in_rad_test _=
-  let should_be=0.2268928 and result=obj#lat_in_rad latDeg in
+  let should_be= -0.35 and l = -20.0 in
+  let result=obj#lat_in_rad l in
     test_reporter should_be result
+
 
 let solar_declination_test _=
   let should_be=0.11965509 and result=obj#solar_declination day_of_year in
@@ -78,13 +80,36 @@ let daylength_test _=
   let should_be=12.2120762 and ws=1.59855704 in
     let result=obj#daylength ws in
       test_reporter should_be result
-    (*
+
+let clear_short_radiation_test _=
+  let should_be=32.2 and j=246 and l= -20. in
+    let result=obj#clear_short_radiation j l in
+      test_reporter should_be result
+
+let stef_boltz_temp_prod_test _=
+  let should_be=31.74 and t=10.5 in
+    let result=obj#stef_boltz_temp_prod ~t:t in
+      test_reporter should_be result
+    
+
+let tmean_test _=
+  let should_be=30.2 and result=obj#tmean tMax tMin in
+      test_reporter should_be result
+
+let avairspeed=2.0
+let temp1_test _=
+  let should_be=1.68 and result=obj#temp1 avairspeed in
+      test_reporter should_be result
+
+let temp2_test _=
+  (*should be really is 0.685*)
+  let should_be=0.695 and result=obj#temp2 0.246 0.0674 1.6 in
+      test_reporter should_be result
+
 let eto_fin_test _=
-  let should_be=5.72 and result=obj#calculate ~tmin:tMin ~tmax:tMax ~ea:ea ~day:15 ~avairspeed:2. ~monthNum:5 ~latitude_degrees:latDeg ~latitude_Lepta:latMin ~tmonth_i:monthlyAv ~tmonth_i_1:monthlyAvPrev ~altitude:alt ~av_sunhours:sun in
-  let compare =cmp_float ~epsilon:test_precision result should_be and 
-  error_msg="failed test result: "^string_of_float (result)^" should be "^string_of_float should_be^" diff is: "^string_of_float (result-.should_be) in
-    assert_bool error_msg compare
-*)
+  let should_be=5.72 and result=obj#calculate ~tmin:tMin ~tmax:tMax ~ea:ea ~day:15 ~avairspeed:avairspeed ~monthNum:5 ~latitude_degrees:latDeg ~latitude_Lepta:latMin ~tmonth_i:monthlyAv ~tmonth_i_1:monthlyAvPrev ~altitude:alt ~av_sunhours:sun in
+  test_reporter should_be result
+
 
 let eto_test = "eto_test">::: [
   "pressure_test">:: pressure_test;
@@ -98,6 +123,11 @@ let eto_test = "eto_test">::: [
   "solar_declination_test">:: solar_declination_test;
   "sun_hour_angle_test">:: sun_hour_angle_test;
   "daylength_test">:: daylength_test;
+  "clear_short_radiation_test">:: clear_short_radiation_test;
+  "stef_boltz_temp_prod_test">:: stef_boltz_temp_prod_test;
+  "tmean_test">:: tmean_test;
+  "temp1_test">:: temp1_test;
+  "temp2_test">:: temp2_test;
   (*"eto_fin_test">:: eto_fin_test;*)
    ]
 
