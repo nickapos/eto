@@ -9,7 +9,7 @@ let day_of_year=105
 let tMax=34.8
 let ea=2.85
 let speed=2.0
-let monthNum=4.0
+let monthNum=4
 let latDeg=13.0
 let latMin=44.0
 let monthlyAv=30.2
@@ -156,10 +156,11 @@ let delta_test _=
   let should_be=0.150 and result=obj#delta 20.7 in
       test_reporter should_be result
 let eto_fin_test _=
-  (*computer result 6.435 according to the test reference should be 5.72 mm/day. 
-   * we have a deviation of 0.715548535493 mm/day. Possibly due to round off differences
+  (*computer result 6.26 according to the test reference should be 5.72 mm/day. 
+   * we have a deviation of 0.54 mm/day. Possibly due to round off differences
+   * the sample data used, are montly mean data.
    *)
-  let should_be=6.435 and result=obj#calculate ~tmin:tMin ~tmax:tMax ~ea:ea ~day:15 ~avairspeed:avairspeed ~monthNum:5 ~latitude_degrees:latDeg ~latitude_Lepta:latMin ~tmonth_i:monthlyAv ~tmonth_i_1:monthlyAvPrev ~altitude:alt ~av_sunhours:sun in
+  let should_be=6.26 and result=obj#calculate ~tmin:tMin ~tmax:tMax ~ea:ea ~day:15 ~avairspeed:avairspeed ~monthNum:monthNum ~latitude_degrees:latDeg ~latitude_Lepta:latMin ~tmonth_i:monthlyAv ~tmonth_i_1:monthlyAvPrev ~altitude:alt ~av_sunhours:sun in
   test_reporter should_be result
 
 

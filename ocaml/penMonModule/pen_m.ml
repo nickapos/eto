@@ -242,7 +242,7 @@ let main () =
       (*let len = (Array.length Sys.argv) in
           create an object *)
           let obj = new penm in
-          Printf.printf "%f\n" (obj#calculate ~tmin:25.6 ~tmax:34.8 ~ea:2.85 ~day:15 ~avairspeed:2. ~monthNum:5 ~latitude_degrees:13. ~latitude_Lepta:44. ~tmonth_i:30.2 ~tmonth_i_1:29.2 ~altitude:200. ~av_sunhours:8.5)
+          Printf.printf "%f\n" (obj#calculate ~tmin:25.6 ~tmax:34.8 ~ea:2.85 ~day:15 ~avairspeed:2. ~monthNum:4 ~latitude_degrees:13. ~latitude_Lepta:44. ~tmonth_i:30.2 ~tmonth_i_1:29.2 ~altitude:2. ~av_sunhours:8.5)
 
 
 (* let _ = main () *)
