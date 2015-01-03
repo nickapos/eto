@@ -187,6 +187,32 @@ class penm = object (self)
   method temp4 avairspeed tmean =
     900.*.avairspeed/.(tmean+.273.)
 
+  method temp5 ea =
+    0.34-.0.14*.sqrt ea
+
+  method temp6 fraction1 =
+    1.35*.fraction1-.0.35
+
+  method rnl t_max t_min temp5 temp6 =
+    ((self#stef_boltz_temp_prod t_max +.self#stef_boltz_temp_prod t_min)/.2.)*.temp5*.temp6
+
+  method gmonth tmonth_i tmonth_i_1 =
+    0.14*.(tmonth_i-.tmonth_i_1)
+
+  method temp8 rn gmonth =
+    0.408*.(rn-.gmonth)*.100.
+
+  method fin1 temp8 temp2 =
+   temp8 *. temp2
+
+  method fin2 temp4 deltaEs temp3 =
+   temp4*.deltaEs*.temp3
+
+  method rs nN ra =
+   (0.25+.0.5*.nN)*.ra
+  method rso altitude ra =
+   (0.75+.2.*.altitude/.100000.)*.ra
+
   method calculate ~tmax:tmax ~tmin:tmin ~altitude:altitude ~avairspeed:avairspeed ~ea:ea ~day:day ~monthNum:monthNum ~latitude_degrees:latitude_degrees ~latitude_Lepta:latitude_Lepta ~av_sunhours:av_sunhours ~tmonth_i:tmonth_i ~tmonth_i_1:tmonth_i_1=
     (*
      *function used to calculate the ETo
@@ -202,22 +228,21 @@ class penm = object (self)
       let ra=self#clear_short_radiation j l and ws=self#sun_hour_angle j l in
       let daylength=self#daylength ws in
       let nN= daylength/.av_sunhours in
-      let rs=(0.25+.0.5*.nN)*.ra and rso=(0.75+.2.*.altitude/.100000.)*.ra in
-      let fraction1=rs/.rso and rns=0.77*.rs and sigma_t_max = self#stef_boltz_temp_prod tmax and sigma_t_min=self#stef_boltz_temp_prod tmin 
-        and temp5= 0.34-.0.14*.sqrt ea in
-      let temp6=1.35*.fraction1-.0.35 in
-      let rnl=((sigma_t_max+.sigma_t_min)/.2.)*.temp5*.temp6 in
-      let rn=rns-.rnl and gmonth=0.14*.(tmonth_i-.tmonth_i_1) in
-      let temp7=rn-.gmonth and temp8=0.408*.(rn-.g) in
-      let fin1=temp8 *. temp2 and fin2= temp4*.deltaEs*.temp3 in
-      fin1+.fin2
+      let rs=self#rs nN ra and rso=self#rso altitude ra in
+      let fraction1=rs/.rso and rns=0.77*.rs and temp5= self#temp5 ea in
+      let temp6=self#temp6 fraction1 in
+      let rnl=self#rnl tmax tmin temp5 temp6 in
+      let rn=rns-.rnl and gmonth=self#gmonth tmonth_i tmonth_i_1 in
+      let temp8=self#temp8 rn gmonth in
+      let fin1=self#fin1 temp8 temp2 and fin2= self#fin2 temp4 deltaEs temp3 in 
+      (fin1+.fin2)/.100.
 end;;
 
 let main () =
       (*let len = (Array.length Sys.argv) in
           create an object *)
           let obj = new penm in
-          Printf.printf "%f\n" (obj#calculate ~tmin:25.6 ~tmax:34.8 ~ea:2.85 ~day:15 ~avairspeed:2. ~monthNum:5 ~latitude_degrees:13. ~latitude_Lepta:44. ~tmonth_i:30.2 ~tmonth_i_1:29.2 ~altitude:2. ~av_sunhours:8.5)
+          Printf.printf "%f\n" (obj#calculate ~tmin:25.6 ~tmax:34.8 ~ea:2.85 ~day:15 ~avairspeed:2. ~monthNum:5 ~latitude_degrees:13. ~latitude_Lepta:44. ~tmonth_i:30.2 ~tmonth_i_1:29.2 ~altitude:200. ~av_sunhours:8.5)
 
 
 (* let _ = main () *)
